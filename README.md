@@ -1,28 +1,32 @@
-# LEDERG VPN configs
+# LEDERG VPN configs for v2RayTun (iPhone)
 
-## 2RayTun
+## Recommended: import the VLESS link
 
-Import `2raytun.json` in 2RayTun using **+ → Import from File**.
+Use this link in v2RayTun on iPhone:
 
-The file contains one VLESS + REALITY outbound:
-- Server: `216.152.155.189:443`
-- Transport: RAW/TCP
-- REALITY SNI: `www.apple.com`
-- Fingerprint: `chrome`
-- Flow: `xtls-rprx-vision`
+```text
+vless://dbf3f074-3b18-43f3-b82a-debd8c879c69@216.152.155.189:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.apple.com&fp=chrome&pbk=F5BVp5XkY93lll_Ju34lOIE6A1-dx16_frY6eu9Nzzk&sid=fecf2b55bb11bb0d&spx=%2F&type=tcp#LEDERG-REALITY-Moscow-136ms
+```
 
-## Moscow reachability check
+In v2RayTun, tap **+ → Import from clipboard** (copy the full link first), or open the link on the iPhone. Official deep-link format: `v2raytun://import/{configuration}`.
+
+## Subscription text
+
+`vless.txt` contains one standard VLESS share link on one line. If your version offers **Import from URL**, use:
+
+https://raw.githubusercontent.com/lederg001/lederg-happ-proxy/main/vless.txt
+
+## Xray JSON
+
+`json` and `2raytun.json` are a full, legacy-compatible Xray JSON configuration, using the VLESS `vnext/users` structure and REALITY `publicKey` field. This avoids the newer flattened Xray config form that can be rejected by older iOS cores.
+
+## Moscow TCP check
 
 On 2026-11-11, Check-Host node `ru1.node.check-host.net` (Moscow) opened TCP to `216.152.155.189:443` in **136 ms**:
 https://check-host.net/check-report/5721415ck650
 
-A TCP-open result confirms only that the port accepted a TCP connection from that probe. It does **not** confirm the VLESS/REALITY handshake, authentication, speed under load, or continued uptime. Test the profile in the client before relying on it.
+This confirms only TCP reachability from that probe. It does not prove a successful VLESS/REALITY handshake or working traffic from your iPhone.
 
-Other public candidates that answered TCP checks used `security=none`; they are intentionally excluded from this primary privacy-oriented profile. One candidate timed out and was excluded.
+## Security note
 
-## Source and caution
-
-The public share URI was taken from the TOP 100 feed of:
-https://github.com/0xRadikal/Free-v2ray-Configs
-
-This is a third-party public proxy, not a private LEDERG server. Its operator may be able to observe traffic metadata and, for unencrypted destination traffic, content. Do not use it for banking, passwords, or sensitive accounts. Public nodes can disappear or change without notice.
+This is a third-party public proxy, not a private LEDERG server. Its operator may observe traffic metadata and unencrypted destination traffic. Do not use it for banking, passwords, or sensitive accounts. Public nodes can stop working without notice.
