@@ -2,25 +2,55 @@
   "log": {
     "loglevel": "warning"
   },
+  "inbounds": [
+    {
+      "tag": "socks-in",
+      "listen": "127.0.0.1",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "tag": "http-in",
+      "listen": "127.0.0.1",
+      "port": 10809,
+      "protocol": "http",
+      "settings": {
+        "allowTransparent": false
+      }
+    }
+  ],
   "outbounds": [
     {
-      "tag": "LEDERG • VLESS REALITY • Moscow TCP 136 ms",
+      "tag": "LEDERG-REALITY",
       "protocol": "vless",
       "settings": {
-        "address": "216.152.155.189",
-        "port": 443,
-        "id": "dbf3f074-3b18-43f3-b82a-debd8c879c69",
-        "encryption": "none",
-        "flow": "xtls-rprx-vision",
-        "level": 0
+        "vnext": [
+          {
+            "address": "216.152.155.189",
+            "port": 443,
+            "users": [
+              {
+                "id": "dbf3f074-3b18-43f3-b82a-debd8c879c69",
+                "encryption": "none",
+                "flow": "xtls-rprx-vision",
+                "level": 0
+              }
+            ]
+          }
+        ]
       },
       "streamSettings": {
-        "network": "raw",
+        "network": "tcp",
         "security": "reality",
         "realitySettings": {
           "serverName": "www.apple.com",
           "fingerprint": "chrome",
-          "password": "F5BVp5XkY93lll_Ju34lOIE6A1-dx16_frY6eu9Nzzk",
+          "publicKey": "F5BVp5XkY93lll_Ju34lOIE6A1-dx16_frY6eu9Nzzk",
           "shortId": "fecf2b55bb11bb0d",
           "spiderX": "/"
         }
@@ -36,5 +66,9 @@
       "protocol": "blackhole",
       "settings": {}
     }
-  ]
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": []
+  }
 }
